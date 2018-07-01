@@ -174,7 +174,7 @@ int main (int argc, char *argv[])
   char output[255], output_l[255];
   int days = 0;
 
-  for (i = wait; i >=0; i--)
+  for (i = wait; i >=0; i = i-interval)
    {
 	time = i;
 	days = time/(3600*24);
