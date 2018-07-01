@@ -1,0 +1,47 @@
+.\" Emacs, -*- nroff -*- please
+.TH OSDcountdown 1osd_countdown "July 2018" "X OSD countdown"
+.SH NAME
+osd_countdown - X on-screen countdown displayer
+.SH SYNOPSIS
+.B osd_cat
+[\fIOPTION\fR]... [\fI+FORMAT\fR]
+.SH DESCRIPTION
+.PP
+.\" Add any additional description here
+.PP
+Display date/time information on screen.
+.TP
+\fB\-f\fR \fIFONT\fR
+Set font.
+.TP
+\fB\-c\fR \fICOLOR\fR
+Set color.
+.TP
+\fB\-d\fR \fIDELAY\fR
+Sets the delay (in seconds) that the countdown is exposed.  Useful if combined with \fIINTERVAL\fR.
+.TP
+\fB\-F\fR \fIFORMAT\fR
+This option specifies the format to be used to output the date.  See '\fIstrftime(3)\fR'.
+.TP
+\fB\-i\fR \fIINTERVAL\fR
+This specifies the interval between displays.  Default is 1 (display every second).
+.TP
+\fB\-s\fR \fISHADOW\fR
+This option sets the shadow depth.  Default 2.
+.TP
+\fB\-x\fR \fIXOFFSET\fR
+Horizontal offset
+.TP
+\fB\-y\fR \fIYOFFSET\fR
+Vertical offset
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+display this help and exit
+.PP
+.SH AUTHOR
+Daniel González Cabanelas <dgcbueu@gmail.com>
+.br
+Jon Beckham <leftorium@leftorium.net>
+.br
+.SH COPYRIGHT
+It is distributed under the GNU General Public License.
