@@ -34,6 +34,7 @@ static struct option long_options[] = {
   {"color",    1, NULL, 'c'},
   {"delay",    1, NULL, 'd'},
   {"execute",  1, NULL, 'e'},
+  {"message",  1, NULL, 'M'},
   {"format",   1, NULL, 'F'},
   {"interval", 1, NULL, 'i'},
   {"shadow",   1, NULL, 's'},
@@ -55,6 +56,7 @@ int main (int argc, char *argv[])
 
   static const char *format;
   static const char *command;
+  static const char *message;
 
   xosd *osd;
   xosd_pos pos = XOSD_middle;
@@ -69,7 +71,7 @@ int main (int argc, char *argv[])
   int interval = 1;
   unsigned int wait = 30;
 
-  while ((c = getopt_long(argc ,argv,"f:c:d:e:F:i:s:x:y:w:tmbrCh",
+  while ((c = getopt_long(argc ,argv,"f:c:d:e:M:F:i:s:x:y:w:tmbrCh",
 			  long_options, NULL)) != -1)
   {
     switch(c)
@@ -85,6 +87,9 @@ int main (int argc, char *argv[])
 	break;
       case 'e':
 	command = optarg;
+	break;
+      case 'M':
+	message = optarg;
 	break;
       case 'd':
 	delay = atoi(optarg);
@@ -123,6 +128,7 @@ int main (int argc, char *argv[])
 	printf("USAGE: %s [-flag args]\n"
 		"\t-w --wait    \tduration, in seconds, of the countdown\n"
 		"\t-e --execute \texecute a command after the countdown timeout\n"
+		"\t-M --message \tdisplay an OSD text message after the countdown timeout\n"
 		"\t-f --font    \tfully qualified font. Use 'xfontsel'. default: fixed\n"
 		"\t-c --color   \tcolor. Name or hex e.g. '#B03060'. See X11 rgb.txt. default: red\n"
 		"\t-s --shadow  \tdrop shadow offset.  default: 2\n"
@@ -207,7 +213,9 @@ int main (int argc, char *argv[])
 		sleep(interval);
 	}
 
+  if(message) xosd_display (osd, 0, XOSD_string, message);
   if(command) system(command);
+  if(message) getchar();
 
   xosd_destroy (osd);
 

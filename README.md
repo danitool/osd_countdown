@@ -4,7 +4,7 @@ A countdown which uses the X On-Screen Display library for Linux OS desktops
 
 Usage example:
 
-`osd_countdown --wait 66 --font "-*-nimbus mono-*-*-*-*-70-*-*-*-*-*-*-*"`
+`osd_countdown --wait 66 --message "Time out!" --font "-*-nimbus mono-*-*-*-*-70-*-*-*-*-*-*-*"`
 
 The default font is freemono. To correctly choose the desired font, it's recomendable to use the  
 application **xfontsel**:
