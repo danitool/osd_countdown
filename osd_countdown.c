@@ -33,6 +33,7 @@ static struct option long_options[] = {
   {"font",     1, NULL, 'f'},
   {"color",    1, NULL, 'c'},
   {"delay",    1, NULL, 'd'},
+  {"execute",  1, NULL, 'e'},
   {"format",   1, NULL, 'F'},
   {"interval", 1, NULL, 'i'},
   {"shadow",   1, NULL, 's'},
@@ -53,6 +54,7 @@ int main (int argc, char *argv[])
   char c;
 
   static const char *format;
+  static const char *command;
 
   xosd *osd;
   xosd_pos pos = XOSD_middle;
@@ -67,7 +69,7 @@ int main (int argc, char *argv[])
   int interval = 1;
   unsigned int wait = 30;
 
-  while ((c = getopt_long(argc ,argv,"f:c:d:F:i:s:x:y:w:tmbrCh",
+  while ((c = getopt_long(argc ,argv,"f:c:d:e:F:i:s:x:y:w:tmbrCh",
 			  long_options, NULL)) != -1)
   {
     switch(c)
@@ -80,6 +82,9 @@ int main (int argc, char *argv[])
 	break;
       case 'c':
 	color = optarg;
+	break;
+      case 'e':
+	command = optarg;
 	break;
       case 'd':
 	delay = atoi(optarg);
@@ -117,6 +122,7 @@ int main (int argc, char *argv[])
       case 'h':
 	printf("USAGE: %s [-flag args]\n"
 		"\t-w --wait    \tduration, in seconds, of the countdown\n"
+		"\t-e --execute \texecute a command after the countdown timeout\n"
 		"\t-f --font    \tfully qualified font. Use 'xfontsel'. default: fixed\n"
 		"\t-c --color   \tcolor. Name or hex e.g. '#B03060'. See X11 rgb.txt. default: red\n"
 		"\t-s --shadow  \tdrop shadow offset.  default: 2\n"
@@ -200,6 +206,8 @@ int main (int argc, char *argv[])
 
 		sleep(interval);
 	}
+
+  if(command) system(command);
 
   xosd_destroy (osd);
 
