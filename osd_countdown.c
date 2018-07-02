@@ -27,7 +27,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <time.h>
-
+#include <sys/time.h>
 static struct option long_options[] = {
   {"font",     1, NULL, 'f'},
   {"color",    1, NULL, 'c'},
@@ -42,13 +42,10 @@ static struct option long_options[] = {
   {"center",   0, NULL, 'C'},
   {"xoffset",  1, NULL, 'x'},
   {"yoffset",  1, NULL, 'y'},
-  {"wait",    1, NULL, 'w'},
+  {"wait",     1, NULL, 'w'},
   {"help",     0, NULL, 'h'},
   {NULL,       0, NULL, 0}
 };
-
-
-
 
 int main (int argc, char *argv[])
 {
@@ -69,7 +66,7 @@ int main (int argc, char *argv[])
   int interval = 1;
   unsigned int wait = 30;
 
-  while ((c = getopt_long(argc ,argv,"f:c:d:F:i:s:x:y:tmbrCh",
+  while ((c = getopt_long(argc ,argv,"f:c:d:F:i:s:x:y:w:tmbrCh",
 			  long_options, NULL)) != -1)
   {
     switch(c)
@@ -166,40 +163,47 @@ int main (int argc, char *argv[])
 
   /* If no format is specified, we revert to ctime-ish display */ 
   if(!format) format = "%H:%M:%S";
-
-
+  
+    
+    
   struct tm mytime;
-  int i;
   int time = 0;
   char output[255], output_l[255];
   int days = 0;
+  unsigned int elapsed = 0, time_left = 0;
+  struct timeval start, end;
 
-  for (i = wait; i >=0; i = i-interval)
-   {
-	time = i;
-	days = time/(3600*24);
-	time = time%(3600*24);
-	mytime.tm_hour = time/3600;
-	time = time%3600;
-	mytime.tm_min = time/60;
-	time = time%60;
-	mytime.tm_sec = time;
+  gettimeofday(&start,NULL); //first time stamp
+  time_left = wait - elapsed; //set time left
 
-	//mktime(&mytime);
+  while (time_left > 0) 
+	{
+		gettimeofday(&end,NULL); //second time stamp
+		elapsed  = end.tv_sec  - start.tv_sec;
+		time_left = wait - elapsed; //update time left
 
-	strftime(output, 255, format, &mytime);
+		time = time_left;
+		days = time/(3600*24);
+		time = time%(3600*24);
+		mytime.tm_hour = time/3600;
+		time = time%3600;
+		mytime.tm_min = time/60;
+		time = time%60;
+		mytime.tm_sec = time;
 
-	if (days > 0) {
-		sprintf(output_l, "%d days %s", days, output);
-		xosd_display (osd, 0, XOSD_string, output_l);
+		strftime(output, 255, format, &mytime);
+
+		if (days > 0) {
+			sprintf(output_l, "%d days %s", days, output);
+			xosd_display (osd, 0, XOSD_string, output_l);
+		}
+		else
+			xosd_display (osd, 0, XOSD_string, output);
+
+		sleep(interval);
 	}
-	else
-		xosd_display (osd, 0, XOSD_string, output);
-
-	sleep(interval);
-   }
 
   xosd_destroy (osd);
-  
+
   return EXIT_SUCCESS;
 }
