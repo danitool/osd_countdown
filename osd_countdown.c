@@ -28,6 +28,7 @@
 #include <getopt.h>
 #include <time.h>
 #include <sys/time.h>
+
 static struct option long_options[] = {
   {"font",     1, NULL, 'f'},
   {"color",    1, NULL, 'c'},
@@ -163,23 +164,20 @@ int main (int argc, char *argv[])
 
   /* If no format is specified, we revert to ctime-ish display */ 
   if(!format) format = "%H:%M:%S";
-  
-    
-    
+
   struct tm mytime;
-  int time = 0;
-  char output[255], output_l[255];
-  int days = 0;
+  struct timeval start, now;
   unsigned int elapsed = 0, time_left = 0;
-  struct timeval start, end;
+  char output[255], output_l[255];
+  int time = 0, days = 0;
 
   gettimeofday(&start,NULL); //first time stamp
   time_left = wait - elapsed; //set time left
 
   while (time_left > 0) 
 	{
-		gettimeofday(&end,NULL); //second time stamp
-		elapsed  = end.tv_sec  - start.tv_sec;
+		gettimeofday(&now,NULL); //actual time stamp
+		elapsed  = now.tv_sec  - start.tv_sec;
 		time_left = wait - elapsed; //update time left
 
 		time = time_left;
