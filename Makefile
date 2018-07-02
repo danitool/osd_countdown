@@ -18,7 +18,7 @@ LDFLAGS=-L. -L/usr/X11R6/lib -lX11 -lXext -lpthread -lXt
 
 XOSDLIBS=-lxosd
 
-SOURCES=ChangeLog README COPYING Makefile \
+SOURCES=LICENSE Makefile README.md \
 	osd_countdown.c osd_countdown.1
 
 ARFLAGS=cru

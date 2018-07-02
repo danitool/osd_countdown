@@ -61,7 +61,7 @@ int main (int argc, char *argv[])
   xosd *osd;
   xosd_pos pos = XOSD_middle;
   xosd_align align = XOSD_center;
-  
+
   const char *font = "-*-freemono-*-r-*-*-*-1000-*-*-*-*-*-*";
   const char *color = "red";
   int delay = -1; 
@@ -157,17 +157,17 @@ int main (int argc, char *argv[])
   xosd_set_align(osd, align);
   xosd_set_vertical_offset(osd,yoffset);
   xosd_set_horizontal_offset(osd,xoffset);
- 
+
   /* Set timeout */
   xosd_set_timeout(osd, delay);
-  
+
   /* Set the font and the colours. */
   xosd_set_font(osd, font);
   xosd_set_colour(osd, color);
 
   /* Set the font shadow */
   xosd_set_shadow_offset(osd, shadow);
-  
+
   if (!osd)
   {
     fprintf (stderr, "Error initializing osd\n");
@@ -183,41 +183,41 @@ int main (int argc, char *argv[])
   char output[255], output_l[255];
   int time = 0, days = 0;
 
-  gettimeofday(&start,NULL); //first time stamp
+  gettimeofday(&start, NULL); //first time stamp
   time_left = wait - elapsed; //set time left
 
   while (time_left > 0) 
 	{
-		gettimeofday(&now,NULL); //actual time stamp
-		elapsed  = now.tv_sec  - start.tv_sec;
+		gettimeofday(&now, NULL); //actual time stamp
+		elapsed = now.tv_sec - start.tv_sec;
 		time_left = wait - elapsed; //update time left
 
-		time = time_left;
-		days = time/(3600*24);
-		time = time%(3600*24);
-		mytime.tm_hour = time/3600;
-		time = time%3600;
-		mytime.tm_min = time/60;
-		time = time%60;
-		mytime.tm_sec = time;
+		time 		= time_left;
+		days 		= time / 86400;
+		time 		= time % 86400;
+		mytime.tm_hour 	= time / 3600;
+		time 		= time % 3600;
+		mytime.tm_min 	= time / 60;
+		time 		= time % 60;
+		mytime.tm_sec 	= time;
 
 		strftime(output, 255, format, &mytime);
 
 		if (days > 0) {
 			sprintf(output_l, "%d days %s", days, output);
-			xosd_display (osd, 0, XOSD_string, output_l);
+			xosd_display(osd, 0, XOSD_string, output_l);
 		}
 		else
-			xosd_display (osd, 0, XOSD_string, output);
+			xosd_display(osd, 0, XOSD_string, output);
 
 		sleep(interval);
 	}
 
-  if(message) xosd_display (osd, 0, XOSD_string, message);
+  if(message) xosd_display(osd, 0, XOSD_string, message);
   if(command) system(command);
   if(message) getchar();
 
-  xosd_destroy (osd);
+  xosd_destroy(osd);
 
   return EXIT_SUCCESS;
 }
