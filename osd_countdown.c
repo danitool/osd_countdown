@@ -215,7 +215,7 @@ int main (int argc, char *argv[])
 
   if(message) xosd_display(osd, 0, XOSD_string, message);
   if(command) system(command);
-  if(message) getchar();
+  if(message) pause();
 
   xosd_destroy(osd);
 
