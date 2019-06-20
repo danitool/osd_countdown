@@ -19,3 +19,4 @@ To compile, type 'make'.
 To install, type 'make install'.  
 
 For help, osd_countdown -h.  Simple enough.
+added line
