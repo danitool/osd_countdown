@@ -62,7 +62,7 @@ int main (int argc, char *argv[])
   xosd_pos pos = XOSD_middle;
   xosd_align align = XOSD_center;
 
-  const char *font = "-*-freemono-*-r-*-*-*-1000-*-*-*-*-*-*";
+  const char *font = "-*-*-*-*-*-*-*-500-*-*-*-*-*-*";
   const char *color = "red";
   int delay = -1; 
   int xoffset = 0;
