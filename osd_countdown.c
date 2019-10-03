@@ -180,7 +180,7 @@ int main (int argc, char *argv[])
   struct tm mytime;
   struct timeval start, now;
   unsigned int elapsed = 0, time_left = 0;
-  char output[255], output_l[255];
+  char output[244], output_l[255];
   int time = 0, days = 0;
 
   gettimeofday(&start, NULL); //first time stamp
