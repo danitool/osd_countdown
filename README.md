@@ -19,3 +19,11 @@ To compile, type 'make'.
 To install, type 'make install'.  
 
 For help, **osd_countdown -h**
+
+<br/>
+<br/>
+<br/>
+  
+Screen capture example:
+
+![](screen-capture.gif)
