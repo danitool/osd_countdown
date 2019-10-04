@@ -6,7 +6,7 @@ Usage example:
 
 `osd_countdown --wait 66 --message "Time out!" --font "-*-dejavu sans mono-*-*-*-*-70-*-*-*-*-*-*-*"`
 
-The default xfont is the system default (fixed). To correctly choose the desired font, it's recomendable_
+The default xfont is the system default (fixed). To correctly choose the desired font, it's recomendable  
 to use the application **xfontsel**:
 1. Execute the command: `xfontsel -print`
 2. Choose an available font
