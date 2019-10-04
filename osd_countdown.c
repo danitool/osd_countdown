@@ -42,6 +42,7 @@ static struct option long_options[] = {
   {"middle",   0, NULL, 'm'},
   {"bottom",   0, NULL, 'b'},
   {"right",    0, NULL, 'r'},
+  {"left",     0, NULL, 'l'},
   {"center",   0, NULL, 'C'},
   {"xoffset",  1, NULL, 'x'},
   {"yoffset",  1, NULL, 'y'},
@@ -59,8 +60,8 @@ int main (int argc, char *argv[])
   static const char *message;
 
   xosd *osd;
-  xosd_pos pos = XOSD_middle;
-  xosd_align align = XOSD_center;
+  xosd_pos pos = XOSD_bottom;
+  xosd_align align = XOSD_left;
 
   const char *font = "-*-*-*-*-*-*-*-500-*-*-*-*-*-*";
   const char *color = "red";
@@ -71,7 +72,7 @@ int main (int argc, char *argv[])
   int interval = 1;
   unsigned int wait = 30;
 
-  while ((c = getopt_long(argc ,argv,"f:c:d:e:M:F:i:s:x:y:w:tmbrCh",
+  while ((c = getopt_long(argc ,argv,"f:c:d:e:M:F:i:s:x:y:w:tmbrlCh",
 			  long_options, NULL)) != -1)
   {
     switch(c)
@@ -121,6 +122,9 @@ int main (int argc, char *argv[])
       case 'r':
 	align = XOSD_right;
 	break;
+      case 'l':
+	align = XOSD_left;
+	break;
       case 'C':
         align = XOSD_center;
         break;
@@ -136,6 +140,7 @@ int main (int argc, char *argv[])
 		"\t-m --middle  \tlocate countdown at middle (default: bottom)\n"
 		"\t-b --bottom  \tlocate countdown at bottom (default)\n"
 		"\t-r --right   \tlocate countdown at right (default: left)\n"
+		"\t-l --left    \tlocate countdown at left (default: left)\n"
 		"\t-C --center  \tlocate countdown at center (default: left)\n"
 		"\t-x --xoffset \thorizontal offset (default: 0)\n"
 		"\t-y --yoffset \tvertical offset (default: 0)\n"
